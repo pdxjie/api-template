@@ -35,4 +35,18 @@ spring:
 #      min-idle: 0
 #      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
 #      max-wait: -1
-
+# knife4j 配置
+knife4j:
+  enable: true
+  openapi:
+    title: 通用后端开发模板
+    email: xxxx@xxxx.com
+    concat: xxxx@xxxx.com
+    version: v1.0
+    license: Apache 2.0
+    group:
+      test1:
+        group-name: 分组名称
+        api-rule: package
+        api-rule-resources:
+          - com.basis.controller
