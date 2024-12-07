@@ -22,7 +22,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result exception(Exception e){
         log.error("Exception====>{}",e.getLocalizedMessage(),e);
-        return Result.fail(ResponseCode.FAIL);
+        return Result.fail(ResponseCode.OPERATE_ERROR);
     }
 
     @ExceptionHandler(value = BusinessException.class)
@@ -54,12 +54,12 @@ public class RestExceptionHandler {
             log.info("msg={}",msgs[i]);
             i++;
         }
-        return Result.fail(ResponseCode.ERROR_PARAM.getCode(), msgs[0]);
+        return Result.fail(ResponseCode.OPERATE_ERROR.getCode(), msgs[0]);
     }
 
     @ExceptionHandler(RuntimeException.class)
     public Result runtimeExceptionHandler (RuntimeException e) {
         log.error("runtimeExceptionHandler ====>{}",e.getLocalizedMessage(),e);
-        return Result.fail(ResponseCode.FAIL.getCode(), ResponseCode.FAIL.getMessage());
+        return Result.fail(ResponseCode.OPERATE_ERROR.getCode(), ResponseCode.OPERATE_ERROR.getMessage());
     }
 }

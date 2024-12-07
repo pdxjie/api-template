@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /*
- * @Author 派同学
+ * @Author IT 派同学
  * @Description 分页参数
  * @Date 2023/8/4
  **/
