@@ -31,6 +31,7 @@ api-template
 │   │   │   └── com
 │   │   │       └── basis
 │   │   │           └── apitemplate
+│   │   │               ├── annotations    # 自定义注解
 │   │   │               ├── common         # 通用类
 │   │   │               ├── config         # 配置类
 │   │   │               ├── controller     # 控制器
