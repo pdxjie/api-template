@@ -15,8 +15,6 @@ public enum ResponseCode {
 
     SUCCESS(0, "操作成功"),
 
-    OPERATE_ERROR(40000, "操作失败"),
-
     PARAM_ERROR(40100, "参数错误，请稍后重试!"),
 
     NOT_LOGIN(40101, "用户未登录，请先登录!"),
@@ -25,7 +23,11 @@ public enum ResponseCode {
 
     NOT_FOUND(40400, "未找到该资源!"),
 
-    SYSTEM_ERROR(50000, "系统异常，请稍后重试!");
+    SYSTEM_ERROR(50000, "系统异常，请稍后重试!"),
+
+    OPERATE_ERROR(50001, "操作失败"),
+
+    WECHAT_AUTHORIZATION(50002, "微信图像识别能力调用失败")
     ;
 
     @ApiModelProperty(value = "状态码")

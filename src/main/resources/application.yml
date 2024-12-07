@@ -6,13 +6,8 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-  # 数据库配置
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://ai-thesis.cc:3306/init?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    username: root
-    password: root
-    type: com.alibaba.druid.pool.DruidDataSource
+  profiles:
+    active: @spring.profiles.active@
 #  Redis 默认禁用
 #  redis:
 #    # redis数据库索引(默认为0)，我们使用索引为3的数据库，避免和其他数据库冲突
