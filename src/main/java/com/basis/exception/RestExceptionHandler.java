@@ -15,18 +15,18 @@ import java.util.List;
  * @Description 异常处理
  * @Date 2024/12/7
  **/
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class RestExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
-    public Result exception(Exception e){
+    public Result<?> exception(Exception e){
         log.error("Exception====>{}",e.getLocalizedMessage(),e);
         return Result.fail(ResponseCode.OPERATE_ERROR);
     }
 
     @ExceptionHandler(value = BusinessException.class)
-    public Result businessException(BusinessException e){
+    public Result<?> businessException(BusinessException e){
         log.error("businessException ====>{}",e.getLocalizedMessage(),e);
         return Result.fail(e.getCode(),e.getMessage());
     }
@@ -47,18 +47,18 @@ public class RestExceptionHandler {
     }
 
     private <T> Result<T> createValidExceptionResp(List<ObjectError> errors) {
-        String[] msgs = new String[errors.size()];
+        String[] messages = new String[errors.size()];
         int i = 0;
         for (ObjectError error : errors) {
-            msgs[i] = error.getDefaultMessage();
-            log.info("msg={}",msgs[i]);
+            messages[i] = error.getDefaultMessage();
+            log.info("msg={}",messages[i]);
             i++;
         }
-        return Result.fail(ResponseCode.OPERATE_ERROR.getCode(), msgs[0]);
+        return Result.fail(ResponseCode.OPERATE_ERROR.getCode(), messages[0]);
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public Result runtimeExceptionHandler (RuntimeException e) {
+    public Result<?> runtimeExceptionHandler (RuntimeException e) {
         log.error("runtimeExceptionHandler ====>{}",e.getLocalizedMessage(),e);
         return Result.fail(ResponseCode.OPERATE_ERROR.getCode(), ResponseCode.OPERATE_ERROR.getMessage());
     }

@@ -1,6 +1,7 @@
 package com.basis.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -51,6 +52,8 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Override
     public Result<?> insertPermission(InsertPermissionVo vo) {
         Permission permission = new Permission();
+        Permission one = getOne(new LambdaQueryWrapper<Permission>().eq(Permission::getPCode, vo.getPermissionCode()));
+        ThrowUtil.throwIf(Objects.nonNull(one), new BusinessException(ResponseCode.PERMISSION_INFO_EXISTED));
         permission.setPName(vo.getPermissionName());
         permission.setPCode(vo.getPermissionCode());
         permission.setCreateTime(LocalDateTime.now());
@@ -74,6 +77,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         Permission permission = getById(vo.getPermissionId());
         // 判断是否权限存在
         ThrowUtil.throwIf(Objects.isNull(permission), new BusinessException(ResponseCode.ROLE_NOT_EXISTED));
+        ThrowUtil.throwIf(permission.getPCode().equalsIgnoreCase(vo.getPermissionCode()), new BusinessException(ResponseCode.PERMISSION_INFO_EXISTED));
         update(new LambdaUpdateWrapper<Permission>().eq(Permission::getId, vo.getPermissionId()).set(Permission::getPCode, vo.getPermissionCode())
                 .set(Permission::getPName, vo.getPermissionName()));
         return Result.success();
@@ -167,6 +171,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         ThrowUtil.throwIf(Objects.isNull(roleId), new BusinessException(ResponseCode.PARAM_ERROR));
         // 根据角色 ID 获取权限信息
         List<PermissionsDto> dtos = this.baseMapper.queryPermissionsByRoleId(roleId);
-        return Result.success(ResponseCode.SUCCESS, dtos);
+        return Result.success(dtos);
     }
 }

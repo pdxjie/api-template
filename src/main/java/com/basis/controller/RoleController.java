@@ -11,10 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
@@ -27,7 +24,7 @@ import javax.websocket.server.PathParam;
  * @author IT 派同学
  * @since 2024-12-07
  */
-@Controller
+@RestController
 @Api(tags = "角色相关接口")
 @RequestMapping("/role")
 public class RoleController {
@@ -48,13 +45,13 @@ public class RoleController {
     }
 
     @ApiOperation(value = "删除角色信息")
-    @PostMapping(value = "/remove", name = "删除角色信息", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/remove", name = "删除角色信息", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<?> removeRole(@PathParam("roleId") Long roleId) {
         return roleService.removeRole(roleId);
     }
 
     @ApiOperation(value = "获取角色信息")
-    @PostMapping(value = "/info", name = "获取角色信息", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/info", name = "获取角色信息", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<Role> roleInfo(@PathParam("roleId") Long roleId) {
         return roleService.roleInfo(roleId);
     }

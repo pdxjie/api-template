@@ -1,6 +1,7 @@
 package com.basis.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -55,13 +56,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public Result<?> insertRole(InsertRoleVo vo) {
         Role role = new Role();
+        Role one = getOne(new LambdaQueryWrapper<Role>().eq(Role::getRoleCode, vo.getRoleCode()));
+        ThrowUtil.throwIf(Objects.nonNull(one), new BusinessException(ResponseCode.ROLE_INFO_EXISTED));
         role.setRoleCode(vo.getRoleCode());
         role.setRoleName(vo.getRoleName());
         role.setCreateTime(LocalDateTime.now());
         role.setUpdateTime(LocalDateTime.now());
         role.setIsDeleted(false);
         save(role);
-        return Result.success();
+        return Result.success("ok");
     }
 
     /**

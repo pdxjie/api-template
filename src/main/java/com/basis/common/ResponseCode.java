@@ -46,6 +46,10 @@ public enum ResponseCode {
     USER_ALREADY_EXISTED(401009, "用户已存在"),
 
     ROLE_NOT_EXISTED(401010, "角色不存在"),
+
+    ROLE_INFO_EXISTED(401011, "角色信息已存在"),
+
+    PERMISSION_INFO_EXISTED(401012, "权限信息已存在")
     ;
 
     @ApiModelProperty(value = "状态码")

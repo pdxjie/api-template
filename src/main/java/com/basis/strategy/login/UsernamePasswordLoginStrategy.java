@@ -57,6 +57,6 @@ public class UsernamePasswordLoginStrategy implements LoginStrategy {
         // 设置具体 TOKEN Session 权限
         StpUtil.getSession().set(ROLE, roles);
         // 返回 Token 值
-        return Result.success(ResponseCode.SUCCESS, StpUtil.getTokenValue());
+        return Result.success(StpUtil.getTokenValue());
     }
 }

@@ -1,7 +1,7 @@
 package com.basis.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
  * @author IT 派同学
  * @since 2024-12-07
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
