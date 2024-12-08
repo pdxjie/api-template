@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserRoleService extends IService<UserRole> {
 
+    /**
+     * 分配角色
+     * @param userId 用户 ID
+     */
+    void assignmentRole(Long userId);
 }

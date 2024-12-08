@@ -11,16 +11,18 @@ import com.basis.mapper.RoleMapper;
 import com.basis.mapper.UserMapper;
 import com.basis.model.entity.User;
 import com.basis.model.vo.LoginVo;
+import com.basis.service.IUserRoleService;
 import com.basis.utils.RedisUtils;
 import com.basis.utils.ThrowUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static com.basis.model.contant.BasicConstant.EMAIL_CODE_PREFIX;
-import static com.basis.model.contant.BasicConstant.ROLE;
+import static com.basis.model.constant.BasicConstant.*;
 
 /**
  * @Author: IT 派同学
@@ -40,6 +42,9 @@ public class EmailLoginStrategy implements LoginStrategy {
     @Resource
     private RoleMapper roleMapper;
 
+    @Autowired
+    private IUserRoleService userRoleService;
+
     @Override
     public Result<String> login(LoginVo vo) {
         // 校验参数
@@ -54,14 +59,26 @@ public class EmailLoginStrategy implements LoginStrategy {
         // 验证码无误后随即删除缓存中的验证码
         redisUtils.delKey(key);
         // 根据用户名查询用户是否存在
-        User one = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail, vo.getEmail()).last("LIMIT 1"));
+        User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getEmail, vo.getEmail()).last("LIMIT 1"));
         // 校验是否存在
-        ThrowUtil.throwIf(Objects.isNull(one), new BusinessException(ResponseCode.USER_NOT_EXIST));
+        if (Objects.isNull(user)) {
+            user = new User();
+            user.setCreateTime(LocalDateTime.now());
+            user.setUpdateTime(LocalDateTime.now());
+            user.setUserName(vo.getUsername());
+            user.setIsDeleted(false);
+            user.setPhone(vo.getPhone());
+            user.setNickName(DEFAULT_NICK_NAME);
+            user.setSex(2); // 默认未知
+            userMapper.insert(user);
+            // 分配角色
+            userRoleService.assignmentRole(user.getId());
+        }
         // 执行登录
         // 根据用户 ID 获取角色列表
-        List<String> roles = roleMapper.selectRolesByUserId(one.getId());
+        List<String> roles = roleMapper.selectRolesByUserId(user.getId());
         // 执行登录
-        StpUtil.login(one.getId());
+        StpUtil.login(user.getId());
         // 设置具体 TOKEN Session 权限
         StpUtil.getSession().set(ROLE, roles);
         // 返回 Token 值

@@ -4,6 +4,7 @@ import com.basis.common.Result;
 import com.basis.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.basis.model.vo.LoginVo;
+import com.basis.model.vo.RegisterVo;
 
 /**
  * <p>
@@ -26,4 +27,11 @@ public interface IUserService extends IService<User> {
      * @return 操作结果
      */
     Result<?> login(LoginVo vo);
+
+    /**
+     * 用户注册系统
+     * @param vo 注册请求体
+     * @return 操作结果
+     */
+    Result<?> register(RegisterVo vo);
 }

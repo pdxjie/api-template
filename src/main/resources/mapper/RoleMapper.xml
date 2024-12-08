@@ -3,7 +3,7 @@
 <mapper namespace="com.basis.mapper.RoleMapper">
     <select id="selectRolesByUserId" resultType="java.lang.String">
         SELECT r.role_code
-        FROM xx_role r,
+        FROM xx_role r
         LEFT JOIN xx_user_role ur ON r.id = ur.r_id
         WHERE ur.u_id = #{userId}
     </select>

@@ -2,6 +2,7 @@ package com.basis.controller;
 
 import com.basis.common.Result;
 import com.basis.model.vo.LoginVo;
+import com.basis.model.vo.RegisterVo;
 import com.basis.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,12 @@ public class AuthController {
     public Result<?> logout() {
         userService.logout();
         return Result.success();
+    }
+
+    @ApiOperation(value = "用户注册系统")
+    @PostMapping(value = "/register", name = "普通用户登录", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<?> register(@RequestBody(required = false) RegisterVo vo) {
+        return userService.register(vo);
     }
 
 }

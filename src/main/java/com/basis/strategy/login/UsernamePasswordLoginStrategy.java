@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.basis.annotations.LoginTypeAnno;
+import com.basis.common.ResponseCode;
 import com.basis.common.Result;
 import com.basis.exception.BusinessException;
 import com.basis.mapper.RoleMapper;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.basis.common.ResponseCode.*;
-import static com.basis.model.contant.BasicConstant.ROLE;
+import static com.basis.model.constant.BasicConstant.ROLE;
 
 /**
  * @Author: IT 派同学
@@ -56,6 +57,6 @@ public class UsernamePasswordLoginStrategy implements LoginStrategy {
         // 设置具体 TOKEN Session 权限
         StpUtil.getSession().set(ROLE, roles);
         // 返回 Token 值
-        return Result.success(StpUtil.getTokenValue());
+        return Result.success(ResponseCode.SUCCESS, StpUtil.getTokenValue());
     }
 }

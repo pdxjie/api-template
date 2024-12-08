@@ -41,7 +41,9 @@ public enum ResponseCode {
 
     CODE_NOT_EXISTED(401007, "验证码不存在"),
 
-    CODE_NOT_CORRECT(401008, "验证码不正确"),
+    CODE_NOT_CORRECT(401008, "验证码已过期或错误, 请重新获取!"),
+
+    USER_ALREADY_EXISTED(401009, "用户已存在"),
     ;
 
     @ApiModelProperty(value = "状态码")

@@ -1,16 +1,32 @@
 package com.basis.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.basis.common.Result;
+import com.basis.exception.BusinessException;
 import com.basis.mapper.UserMapper;
 import com.basis.model.entity.User;
 import com.basis.model.vo.LoginVo;
+import com.basis.model.vo.RegisterVo;
+import com.basis.service.IUserRoleService;
 import com.basis.service.IUserService;
 import com.basis.strategy.login.LoginStrategy;
 import com.basis.strategy.login.LoginStrategyFactory;
+import com.basis.utils.PasswordUtils;
+import com.basis.utils.RedisUtils;
+import com.basis.utils.ThrowUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+import static com.basis.common.ResponseCode.USERNAME_OR_PASS_EMPTY;
+import static com.basis.common.ResponseCode.USER_ALREADY_EXISTED;
+import static com.basis.model.constant.BasicConstant.DEFAULT_NICK_NAME;
 
 /**
  * <p>
@@ -25,6 +41,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     private LoginStrategyFactory strategyFactory;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     /**
      * 退出登录
@@ -47,5 +69,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public Result<?> login(LoginVo vo) {
         LoginStrategy strategy = strategyFactory.getStrategy(vo.getLoginType());
         return strategy.login(vo);
+    }
+
+    /**
+     * 用户注册系统
+     * @param vo 注册请求体
+     * @return 操作结果
+     */
+    @Override
+    public Result<?> register(RegisterVo vo) {
+        // 校验参数
+        ThrowUtil.throwIf(StrUtil.isEmpty(vo.getUsername()) || StrUtil.isEmpty(vo.getPassword()),
+                new BusinessException(USERNAME_OR_PASS_EMPTY));
+        // TODO 验证码校验（按需添加）
+        // String code = (String) redisUtils.getValue(StrUtil.join(NORMAL_CODE_PREFIX, vo.getUsername()));
+        // ThrowUtil.throwIf(Objects.isNull(code) || StrUtil.isEmpty(code) || !vo.getCode().equalsIgnoreCase(code),
+        //         new BusinessException(CODE_NOT_CORRECT));
+        // 根据用户名查询用户是否存在
+        User one = getOne(new LambdaQueryWrapper<User>().eq(User::getUserName, vo.getUsername()).last("LIMIT 1"));
+        // 校验是否存在
+        ThrowUtil.throwIf(Objects.nonNull(one), new BusinessException(USER_ALREADY_EXISTED));
+        // 获取用户加密盐
+        String salt = PasswordUtils.getSalt();
+        // 加密密码
+        String encode = PasswordUtils.encode(vo.getPassword(), salt);
+        // 填充角色信息
+        User user = new User();
+        user.setPassword(encode);
+        user.setCreateTime(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
+        user.setSalt(salt);
+        user.setUserName(vo.getUsername());
+        user.setIsDeleted(false);
+        user.setNickName(DEFAULT_NICK_NAME);
+        user.setSex(2); // 默认未知
+        save(user);
+        // 分配角色
+        userRoleService.assignmentRole(user.getId());
+        return Result.success();
     }
 }

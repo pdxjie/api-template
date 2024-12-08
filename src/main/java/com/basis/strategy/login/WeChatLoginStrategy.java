@@ -11,6 +11,7 @@ import com.basis.model.entity.User;
 import com.basis.model.entity.UserRole;
 import com.basis.model.vo.LoginVo;
 import com.basis.utils.WeChatUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static com.basis.model.contant.BasicConstant.*;
+import static com.basis.model.constant.BasicConstant.*;
 
 /**
  * @Author: IT 派同学
@@ -40,6 +41,9 @@ public class WeChatLoginStrategy implements LoginStrategy {
 
     @Resource
     private UserRoleMapper userRoleMapper;
+
+    @Value("${system.default.roleId}")
+    private Long defaultRoleId;
 
     @Override
     public Result<String> login(LoginVo vo) {
@@ -63,7 +67,7 @@ public class WeChatLoginStrategy implements LoginStrategy {
             UserRole userRole = new UserRole();
             userRole.setId(one.getId());
             // 默认新用户只有普通用户角色
-            userRole.setRId(DEFAULT_USER_ROLE_ID);
+            userRole.setRId(defaultRoleId);
             userRoleMapper.insert(userRole);
         }
         // 根据用户 ID 获取角色列表

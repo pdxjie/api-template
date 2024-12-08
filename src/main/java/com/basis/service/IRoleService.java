@@ -1,9 +1,7 @@
 package com.basis.service;
 
-import com.basis.model.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import com.basis.model.entity.Role;
 
 /**
  * <p>
