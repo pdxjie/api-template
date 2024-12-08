@@ -14,6 +14,8 @@
 - **统一异常处理**：全局异常捕获与处理，统一返回格式。
 - **日志管理**：集成日志记录系统，支持操作日志和异常日志。
 - **Knife4j**：一个集 Swagger2 和 OpenAPI3 为一体的增强解决方案。
+- **本地文件上传**：支持本地文件上传，并自动保存到服务器。
+- **发送邮件和手机验证码**：支持发送邮件和手机验证码，提升用户体验。
 
 ## 技术栈
 
@@ -82,7 +84,7 @@ spring:
     password: yourpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
-### 3. 配置 Redis(默认禁用)
+### 3. 配置 Redis
 ```bash
 spring:
   redis:
@@ -90,9 +92,31 @@ spring:
     port: 6379
     password: yourpassword
 ```
-### 4. 启动项目
+### 4. 配置邮箱（按需设置）
+```bash
+  mail:
+    host: smtp.163.com
+    password: xxxx
+    username: xxxxx
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+```
+### 5 配置 SMS 阿里云短信（按需设置）
+```bash
+aliyun:
+  product: 'Dysmsapi'
+  domain: 'dysmsapi.aliyuncs.com'
+  accessKey: 'AccessKeyId'
+  accessSecret: 'AccesskeySecret'
+```
+### 6. 启动项目
 使用 IDE 运行 ApiTemplateApplication.java
-### 5. 访问 API 文档
+### 7. 访问 API 文档
 启动项目后，您可以通过访问 http://localhost:8888/doc.html 来查看自动生成的 API 文档
 
 ## 常见功能

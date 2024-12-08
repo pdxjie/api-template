@@ -5,6 +5,7 @@ import com.basis.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.basis.model.vo.LoginVo;
 import com.basis.model.vo.RegisterVo;
+import com.basis.model.vo.SendVo;
 
 /**
  * <p>
@@ -34,4 +35,11 @@ public interface IUserService extends IService<User> {
      * @return 操作结果
      */
     Result<?> register(RegisterVo vo);
+
+    /**
+     * 发送验证码
+     * @param vo 发送验证码的请求体
+     * @return 操作结果
+     */
+    Result<?> sendCaptcha(SendVo vo);
 }

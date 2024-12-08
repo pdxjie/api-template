@@ -30,6 +30,19 @@ spring:
       min-idle: 0
       # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
       max-wait: -1
+
+  # Mail配置
+  mail:
+    host: smtp.163.com
+    password: xxxx
+    username: xxxxx
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 # knife4j 配置
 knife4j:
   enable: true

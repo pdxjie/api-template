@@ -3,6 +3,7 @@ package com.basis.controller;
 import com.basis.common.Result;
 import com.basis.model.vo.LoginVo;
 import com.basis.model.vo.RegisterVo;
+import com.basis.model.vo.SendVo;
 import com.basis.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,4 +48,9 @@ public class AuthController {
         return userService.register(vo);
     }
 
+    @ApiOperation(value = "发送验证码")
+    @PostMapping(value = "/send", name = "发送验证码", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result<?> sendCaptcha(@RequestBody(required = false) SendVo vo) {
+        return userService.sendCaptcha(vo);
+    }
 }

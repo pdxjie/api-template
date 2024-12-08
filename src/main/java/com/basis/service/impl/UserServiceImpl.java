@@ -10,17 +10,18 @@ import com.basis.mapper.UserMapper;
 import com.basis.model.entity.User;
 import com.basis.model.vo.LoginVo;
 import com.basis.model.vo.RegisterVo;
+import com.basis.model.vo.SendVo;
 import com.basis.service.IUserRoleService;
 import com.basis.service.IUserService;
 import com.basis.strategy.login.LoginStrategy;
 import com.basis.strategy.login.LoginStrategyFactory;
+import com.basis.strategy.sendStrategy.SendCaptchaStrategy;
+import com.basis.strategy.sendStrategy.SendCaptchaStrategyFactory;
 import com.basis.utils.PasswordUtils;
-import com.basis.utils.RedisUtils;
 import com.basis.utils.ThrowUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -43,10 +44,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private LoginStrategyFactory strategyFactory;
 
     @Autowired
-    private IUserRoleService userRoleService;
+    private SendCaptchaStrategyFactory sendCaptchaStrategyFactory;
 
-    @Resource
-    private RedisUtils redisUtils;
+    @Autowired
+    private IUserRoleService userRoleService;
 
     /**
      * 退出登录
@@ -107,5 +108,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 分配角色
         userRoleService.assignmentRole(user.getId());
         return Result.success();
+    }
+
+    /**
+     * 发送验证码
+     *
+     * @param vo 发送验证码的请求体
+     * @return 操作结果
+     */
+    @Override
+    public Result<?> sendCaptcha(SendVo vo) {
+        SendCaptchaStrategy strategy = sendCaptchaStrategyFactory.getStrategy(vo.getSendType());
+        return strategy.send(vo);
     }
 }

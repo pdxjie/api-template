@@ -49,7 +49,17 @@ public enum ResponseCode {
 
     ROLE_INFO_EXISTED(401011, "角色信息已存在"),
 
-    PERMISSION_INFO_EXISTED(401012, "权限信息已存在")
+    PERMISSION_INFO_EXISTED(401012, "权限信息已存在"),
+
+    EMAIL_NOT_ALLOW_EMPTY(401013, "邮箱不能为空"),
+
+    PHONE_NOT_ALLOW_EMPTY(401014, "手机号不能为空"),
+
+    UPLOAD_FILE_ERROR(401015, "上传文件失败"),
+
+    DOWN_LOAD_FILE_ERROR(401016, "下载文件失败"),
+
+    DELETED_FILE_ERROR(401017, "文件删除失败"),
     ;
 
     @ApiModelProperty(value = "状态码")

@@ -25,4 +25,12 @@ baidu-translation:
   appid: ''
   # 百度翻译密码要
   secret: ''
+# 阿里云短信
+aliyun:
+  product: 'Dysmsapi'
+  domain: 'dysmsapi.aliyuncs.com'
+  accessKey: 'AccessKeyId'
+  accessSecret: 'AccesskeySecret'
 
+file:
+  path: C://upload/
