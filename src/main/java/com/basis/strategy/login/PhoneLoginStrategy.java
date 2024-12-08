@@ -7,7 +7,6 @@ import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.ResponseCode;
 import com.basis.common.Result;
 import com.basis.exception.BusinessException;
-import com.basis.mapper.RoleMapper;
 import com.basis.mapper.UserMapper;
 import com.basis.model.entity.User;
 import com.basis.model.vo.LoginVo;
@@ -19,10 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
-import static com.basis.model.constant.BasicConstant.*;
+import static com.basis.model.constant.BasicConstant.DEFAULT_NICK_NAME;
+import static com.basis.model.constant.BasicConstant.PHONE_CODE_PREFIX;
 
 /**
  * @Author: IT 派同学
@@ -38,9 +37,6 @@ public class PhoneLoginStrategy implements LoginStrategy {
 
     @Resource
     private UserMapper userMapper;
-
-    @Resource
-    private RoleMapper roleMapper;
 
     @Autowired
     private IUserRoleService userRoleService;
@@ -71,16 +67,11 @@ public class PhoneLoginStrategy implements LoginStrategy {
             user.setNickName(DEFAULT_NICK_NAME);
             user.setSex(2); // 默认未知
             userMapper.insert(user);
-            // 分配角色
+            // 分配初始角色
             userRoleService.assignmentRole(user.getId());
         }
         // 执行登录
-        // 根据用户 ID 获取角色列表
-        List<String> roles = roleMapper.selectRolesByUserId(user.getId());
-        // 执行登录
         StpUtil.login(user.getId());
-        // 设置具体 TOKEN Session 权限
-        StpUtil.getSession().set(ROLE, roles);
         // 返回 Token 值
         return Result.success(StpUtil.getTokenValue());
     }

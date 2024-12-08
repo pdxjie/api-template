@@ -4,7 +4,6 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.Result;
-import com.basis.mapper.RoleMapper;
 import com.basis.mapper.UserMapper;
 import com.basis.mapper.UserRoleMapper;
 import com.basis.model.entity.User;
@@ -16,10 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
-import static com.basis.model.constant.BasicConstant.*;
+import static com.basis.model.constant.BasicConstant.DEFAULT_NICK_NAME;
 
 /**
  * @Author: IT 派同学
@@ -35,9 +33,6 @@ public class WeChatLoginStrategy implements LoginStrategy {
 
     @Resource
     private WeChatUtils weChatUtils;
-
-    @Resource
-    private RoleMapper roleMapper;
 
     @Resource
     private UserRoleMapper userRoleMapper;
@@ -70,12 +65,8 @@ public class WeChatLoginStrategy implements LoginStrategy {
             userRole.setRId(defaultRoleId);
             userRoleMapper.insert(userRole);
         }
-        // 根据用户 ID 获取角色列表
-        List<String> roles = roleMapper.selectRolesByUserId(one.getId());
         // 执行登录
         StpUtil.login(one.getId());
-        // 设置具体 TOKEN Session 权限
-        StpUtil.getSession().set(OPEN_ID, openId).set(ROLE, roles);
         return Result.success(StpUtil.getTokenValue());
     }
 }
