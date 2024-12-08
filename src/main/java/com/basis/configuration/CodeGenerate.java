@@ -1,4 +1,4 @@
-package com.basis.config;
+package com.basis.configuration;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;

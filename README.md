@@ -33,7 +33,7 @@ api-template
 │   │   │           └── apitemplate
 │   │   │               ├── annotations    # 自定义注解
 │   │   │               ├── common         # 通用类
-│   │   │               ├── config         # 配置类
+│   │   │               ├── configuration  # 配置类
 │   │   │               ├── controller     # 控制器
 │   │   │               ├── model          # 实体类
 │   │   │               │     ├── vo       # 视图对象
@@ -51,6 +51,8 @@ api-template
 │   │   │         └── init.sql             # 初始化项目数据库脚本
 │   │   │   ├── mapper                     # MyBatis 映射文件
 │   │   │   ├── application.yml            # 配置文件
+│   │   │   ├── application-dev.yml        # 配置文件
+│   │   │   ├── application-prod.yml       # 配置文件
 │   └── test
 │       └── java
 │           └── com

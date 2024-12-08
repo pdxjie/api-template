@@ -70,6 +70,12 @@
             <artifactId>sa-token-spring-boot-starter</artifactId>
             <version>1.34.0</version>
         </dependency>
+        <!-- sa-token整合SpringAOP实现注解鉴权 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-aop</artifactId>
+            <version>1.34.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>

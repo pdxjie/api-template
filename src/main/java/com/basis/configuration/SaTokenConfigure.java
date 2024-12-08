@@ -1,4 +1,4 @@
-package com.basis.config;
+package com.basis.configuration;
 
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import org.springframework.context.annotation.Configuration;
