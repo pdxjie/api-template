@@ -3,7 +3,7 @@
 </div>
 <p align="center">
 <h2 align="center">Api-Template</h2>
-`api-template` 是一个通用的轻量级后端开发模板，基于 Spring Boot、MySQL、Sa-Token 和 Redis 等技术栈，旨在为后端开发提供一个高效、简洁、可扩展的基础模板。该模板适合用于快速构建后端服务和 API 接口，并集成了常见的功能，如用户认证、权限管理、缓存机制等。
+`api-template` 是一个通用的轻量级后端开发模板，基于 Spring Boot、MySQL、Sa-Token 和 Redis 等技术栈，旨在为后端开发提供一个高效、简洁、可扩展的基础模板。该模板适合用于快速构建后端服务和 API 接口，并集成了常见的功能，如用户认证、权限管理、缓存机制，以及使用工厂 + 策略模式适配多种登录方式以及多种发送邮件的方式等。
 
 ## 特性
 
