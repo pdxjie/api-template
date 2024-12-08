@@ -2,6 +2,7 @@ package com.basis.strategy.login;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.Result;
 import com.basis.mapper.RoleMapper;
 import com.basis.mapper.UserMapper;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.basis.model.contant.BasicConstant.*;
-import static com.basis.model.contant.BasicConstant.ROLE;
 
 /**
  * @Author: IT 派同学
@@ -26,6 +26,7 @@ import static com.basis.model.contant.BasicConstant.ROLE;
  * @Description: 微信小程序授权登录
  */
 @Service
+@LoginTypeAnno("WECHAT")
 public class WeChatLoginStrategy implements LoginStrategy {
 
     @Resource

@@ -3,6 +3,7 @@ package com.basis.strategy.login;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.Result;
 import com.basis.exception.BusinessException;
 import com.basis.mapper.RoleMapper;
@@ -26,6 +27,7 @@ import static com.basis.model.contant.BasicConstant.ROLE;
  * @Description: 用户名密码登录
  */
 @Service
+@LoginTypeAnno("NORMAL")
 public class UsernamePasswordLoginStrategy implements LoginStrategy {
 
     @Resource

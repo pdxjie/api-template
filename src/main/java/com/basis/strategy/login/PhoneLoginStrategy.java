@@ -3,6 +3,7 @@ package com.basis.strategy.login;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.ResponseCode;
 import com.basis.common.Result;
 import com.basis.exception.BusinessException;
@@ -27,6 +28,7 @@ import static com.basis.model.contant.BasicConstant.ROLE;
  * @Description: 手机号登录
  */
 @Service
+@LoginTypeAnno("PHONE")
 public class PhoneLoginStrategy implements LoginStrategy {
 
     @Resource

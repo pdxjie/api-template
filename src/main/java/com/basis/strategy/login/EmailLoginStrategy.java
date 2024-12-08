@@ -3,6 +3,7 @@ package com.basis.strategy.login;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.basis.annotations.LoginTypeAnno;
 import com.basis.common.ResponseCode;
 import com.basis.common.Result;
 import com.basis.exception.BusinessException;
@@ -15,7 +16,6 @@ import com.basis.utils.ThrowUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +28,7 @@ import static com.basis.model.contant.BasicConstant.ROLE;
  * @Description: 邮箱登录
  */
 @Service
+@LoginTypeAnno("EMAIL")
 public class EmailLoginStrategy implements LoginStrategy {
 
     @Resource
