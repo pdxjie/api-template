@@ -1,6 +1,9 @@
-# api-template
-
-`api-template` 是一个通用的后端开发模板，基于 Spring Boot、MySQL、Sa-Token 和 Redis 等技术栈，旨在为后端开发提供一个高效、简洁、可扩展的基础模板。该模板适合用于快速构建后端服务和 API 接口，并集成了常见的功能，如用户认证、权限管理、缓存机制等。
+<div align="center">
+  <img src="/assets/snow.svg" style="width:100px;height:100px;">
+</div>
+<p align="center">
+<h2 align="center">Api-Template</h2>
+`api-template` 是一个通用的轻量级后端开发模板，基于 Spring Boot、MySQL、Sa-Token 和 Redis 等技术栈，旨在为后端开发提供一个高效、简洁、可扩展的基础模板。该模板适合用于快速构建后端服务和 API 接口，并集成了常见的功能，如用户认证、权限管理、缓存机制等。
 
 ## 特性
 
@@ -74,7 +77,7 @@ cd api-template
 ```bash
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/init.sql
+    url: jdbc:mysql://localhost:3306/init?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: yourusername
     password: yourpassword
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -90,14 +93,14 @@ spring:
 ### 4. 启动项目
 使用 IDE 运行 ApiTemplateApplication.java
 ### 5. 访问 API 文档
-启动项目后，您可以通过访问 http://localhost:8888/swagger-ui.html 来查看自动生成的 API 文档
+启动项目后，您可以通过访问 http://localhost:8888/doc.html 来查看自动生成的 API 文档
 
 ## 常见功能
 ### 用户认证与权限控制
 使用 Sa-Token 实现用户认证与权限控制，支持以下功能：
 - 登录：支持用户通过用户名和密码进行登录。
 - 登出：支持用户退出登录，清除会话信息。
-- 权限检查：通过注解方式对接口进行权限控制。 
+- 权限检查：通过注解方式对接口进行权限控制。
 ### 缓存管理
 集成 Redis 作为缓存系统，支持缓存常用数据，提高性能。
 ### 错误处理
