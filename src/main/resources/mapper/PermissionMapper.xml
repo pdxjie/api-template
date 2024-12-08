@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.basis.mapper.PermissionMapper">
 
+    <select id="queryPermissionsByRoleId" resultType="com.basis.model.dto.PermissionsDto">
+        SELECT
+            p.id,
+            p.p_code as permissionCode,
+            p.p_name as permissionName;
+        FROM xx_permission p
+        LEFT JOIN xx_role_permission rp ON p.id = rp.p_id
+        WHERE rp.r_id = #{roleId}
+    </select>
 </mapper>

@@ -64,7 +64,7 @@ public class Result<T> implements Serializable {
      * @param data 响应数据
      * @param <T>
      */
-    public static <T>Result<T> success(ResponseCode response,T data) {
+    public static <T>Result<T> success(ResponseCode response, T data) {
         return new Result<T>(response.getCode(), response.getMessage(), data);
     }
 
