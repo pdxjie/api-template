@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: prod
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

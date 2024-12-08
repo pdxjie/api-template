@@ -55,6 +55,9 @@ public class User implements Serializable {
     @ApiModelProperty("加密盐")
     private String salt;
 
+    @ApiModelProperty("手机号")
+    private String phone;
+
     @ApiModelProperty("注册时间")
     private LocalDateTime createTime;
 

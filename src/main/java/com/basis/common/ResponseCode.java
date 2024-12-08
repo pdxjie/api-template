@@ -27,7 +27,21 @@ public enum ResponseCode {
 
     OPERATE_ERROR(50001, "操作失败"),
 
-    WECHAT_AUTHORIZATION(50002, "微信图像识别能力调用失败")
+    WECHAT_AUTHORIZATION(50002, "微信图像识别能力调用失败"),
+
+    USERNAME_OR_PASS_EMPTY(40102, "用户名或密码不能为空"),
+
+    USER_NOT_EXIST(40104, "用户不存在"),
+
+    PASSWORD_ERROR(401005, "用户密码错误, 请重新输入!"),
+
+    EMAIL_OR_CODE_EMPTY(401006, "邮箱或验证码不能为空"),
+
+    PHONE_OR_CODE_EMPTY(401006, "手机号或验证码不能为空"),
+
+    CODE_NOT_EXISTED(401007, "验证码不存在"),
+
+    CODE_NOT_CORRECT(401008, "验证码不正确"),
     ;
 
     @ApiModelProperty(value = "状态码")

@@ -1,7 +1,9 @@
 package com.basis.service;
 
+import com.basis.common.Result;
 import com.basis.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.basis.model.vo.LoginVo;
 
 /**
  * <p>
@@ -14,15 +16,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IUserService extends IService<User> {
 
     /**
-     * 微信授权登录
-     *
-     * @param code 授权码
-     * @return Token 值
-     */
-    String wechatAuthorizedLogin(String code);
-
-    /**
      * 退出登录
      */
     void logout();
+
+    /**
+     * 登录操作
+     * @param vo 请求体
+     * @return 操作结果
+     */
+    Result<?> login(LoginVo vo);
 }
